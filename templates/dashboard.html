@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <h2>Welcome, {{ user.username }}!</h2>
+    <h3>Your Recipes</h3>
+    <ul>
+        {% for recipe in recipes %}
+            <li><a href="{{ url_for('view_recipe', recipe_id=recipe.id) }}">{{ recipe.title }}</a></li>
+        {% endfor %}
+    </ul>
+    <h3>Create a New Recipe</h3>
+    <a href="{{ url_for('create_recipe') }}">Create Recipe</a>
+{% endblock %}

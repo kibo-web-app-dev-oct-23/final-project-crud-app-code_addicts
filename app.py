@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from models import db, User, Recipe, Ingredient
+from model import db, User, Recipe, Ingredient
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
@@ -19,7 +19,7 @@ def register():
         new_user = User(username=username, email=email, password_hash=hashed_password)
         db.session.add(new_user)
         db.session.commit()
-        flash('Account created successfully!', 'success')
+        Flask('Account created successfully!', 'success')
         return redirect(url_for('login'))
     return render_template('register.html')
 
@@ -30,10 +30,10 @@ def login():
         password = request.form.get('password')
         user = User.query.filter_by(email=email).first()
         if user and check_password_hash(user.password_hash, password):
-            flash('Login successful!', 'success')
+            Flask('Login successful!', 'success')
             return redirect(url_for('dashboard'))
         else:
-            flash('Login unsuccessful. Check email and password.', 'danger')
+            Flask('Login unsuccessful. Check email and password.', 'danger')
     return render_template('login.html')
 
 #dashboard route
@@ -50,7 +50,7 @@ def dashboard():
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)
-    flash('You have been logged out', 'info')
+    Flask('You have been logged out', 'info')
     return redirect(url_for('login'))
 
 #recipe management route
@@ -93,7 +93,7 @@ def create_recipe():
                 db.session.add(new_ingredient)
             db.session.commit()
 
-            flash('Recipe created successfully!', 'success')
+            Flask('Recipe created successfully!', 'success')
             return redirect(url_for('dashboard'))
 
         return render_template('create_recipe.html')

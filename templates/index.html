@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipe Saver</title>
-</head>
-<body>
-    <h1>Recipe Saver</h1>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Recipe Saver</title>
+        <link rel="stylesheet" href="./static/output.css">
+    </head>
+    <body>
+        <main class="bg-gray-950 text-white">
+            <h1>Recipe Saver</h1>
+            <h3>Create the next level food recipe</h3>
+
+            <a href="{{url_for('login')}}">Login</a>
+            <a href="{{url_for('register')}}">Sign up</a>
+        </main>
+    </body>
 </html>

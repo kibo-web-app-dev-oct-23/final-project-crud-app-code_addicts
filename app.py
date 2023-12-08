@@ -36,6 +36,7 @@ def register():
         return redirect(url_for("login"))
     return render_template("register.html")
 
+
 # Login Route
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -45,10 +46,10 @@ def login():
         user = User.query.filter_by(email=email).first()
         if user and check_password_hash(user.password_hash, password):
             flash("Login successful!", "success")
-            
+
             # Set user id for the session in order to get user details
-            session['user_id'] = user.id
-            
+            session["user_id"] = user.id
+
             return redirect(url_for("dashboard"))
         else:
             flash("Login unsuccessful. Check email and password.", "danger")
@@ -61,7 +62,7 @@ def dashboard():
     if "user_id" in session:
         # Get user detail from User table
         user = db.session.get(User, session["user_id"])
-        
+
         if user:
             # Fetch user's recipes and display on the dashboard
             recipes = Recipe.query.filter_by(user_id=user.id).all()
@@ -100,12 +101,7 @@ def create_recipe():
             ingredients = request.form.get("ingredients")
             instructions = request.form.get("instructions")
 
-            # Split ingredients into a list
-            ingredients_list = [
-                ingredient.strip() for ingredient in ingredients.split(",")
-            ]
-
-            # Create a new recipe
+            # Create a new recipe object
             user = User.query.get(session["user_id"])
             new_recipe = Recipe(
                 title=title,
@@ -116,16 +112,16 @@ def create_recipe():
             db.session.add(new_recipe)
             db.session.commit()
 
-            # Associate ingredients with the recipe
+            # Split ingredients into a list
+            ingredients_list = [
+                ingredient.strip() for ingredient in ingredients.split(",")
+            ]
+
             for ingredient in ingredients_list:
-                ingredient_data = ingredient.split("-")
-                name = ingredient_data[0].strip()
-                quantity = (
-                    ingredient_data[1].strip() if len(ingredient_data) > 1 else None
-                )
-                unit = ingredient_data[2].strip() if len(ingredient_data) > 2 else None
+                name, quantity = extract_ingredient_data(ingredient)
+
                 new_ingredient = Ingredient(
-                    name=name, quantity=quantity, unit=unit, recipe_id=new_recipe.id
+                    name=name, quantity=quantity, recipe_id=new_recipe.id
                 )
                 db.session.add(new_ingredient)
             db.session.commit()
@@ -136,6 +132,13 @@ def create_recipe():
         return render_template("create_recipe.html")
 
     return redirect(url_for("login"))
+
+
+def extract_ingredient_data(ingredient_data):
+    parts = ingredient_data.split("-")
+    name = parts[0].strip()
+    quantity = parts[1].strip() if len(parts) > 1 else None
+    return name, quantity
 
 
 if __name__ == "__main__":

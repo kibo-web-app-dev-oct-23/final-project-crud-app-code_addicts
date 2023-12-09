@@ -145,7 +145,7 @@ def extract_ingredient_data(ingredient_data):
 @app.route("/edit_recipe/<int:recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
     if "user_id" in session:
-        recipe = Recipe.query.get(recipe_id)
+        recipe = db.session.get(Recipe, recipe_id)
 
         # Check if the logged-in user is the owner of the recipe
         if recipe.user_id == session["user_id"]:
@@ -212,4 +212,4 @@ def delete_recipe(recipe_id):
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run()
+    app.run(debug=True)

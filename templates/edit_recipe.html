@@ -22,6 +22,7 @@
                             type="text"
                             id="title"
                             name="title"
+                            value="{{recipe.title}}"
                             required
                             class="w-full border-gray-300 border-2 rounded-md px-4 py-2 focus:outline-none focus:border-indigo-500" />
                     </div>
@@ -34,8 +35,9 @@
                             name="ingredients"
                             required
                             class="w-full border-gray-300 border-2 rounded-md px-4 py-2 focus:outline-none focus:border-indigo-500"
-                            placeholder="Salt - 2spoon, Maggi - 2cube"
-                            ></textarea>
+                            placeholder="Salt - 2spoon, Maggi - 2cube">
+{{recipe.ingredients}}</textarea
+                        >
                     </div>
                     <div class="mb-6">
                         <label for="instructions" class="block text-gray-700 font-semibold mb-2"
@@ -45,10 +47,16 @@
                             id="instructions"
                             name="instructions"
                             required
-                            class="w-full border-gray-300 border-2 rounded-md px-4 py-2 focus:outline-none focus:border-indigo-500"></textarea>
+                            class="w-full border-gray-300 border-2 rounded-md px-4 py-2 focus:outline-none focus:border-indigo-500">
+{{recipe.instructions}}</textarea
+                        >
                     </div>
 
-                    <button type="submit" class="w-full bg-indigo-500 text-white font-bold py-2 px-4 rounded-md focus:outline-none hover:bg-indigo-600">Update Recipe</button>
+                    <button
+                        type="submit"
+                        class="w-full bg-indigo-500 text-white font-bold py-2 px-4 rounded-md focus:outline-none hover:bg-indigo-600">
+                        Update Recipe
+                    </button>
                 </form>
             </div>
         </section>

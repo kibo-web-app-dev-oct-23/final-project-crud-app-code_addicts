@@ -1,14 +1,42 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- <title>{{ recipe.title }}</title>-->
 
-{% block title %}{{ recipe.title }}{% endblock %}
+        <link
+            href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+            rel="stylesheet" />
+    </head>
 
-{% block content %}
-    <h2>{{ recipe.title }}</h2>
-    <p>Ingredients:</p>
-    <ul>
-        {% for ingredient in ingredients %}
-            <li>{{ ingredient.name }} - {{ ingredient.quantity }} {{ ingredient.unit }}</li>
-        {% endfor %}
-    </ul>
-    <p>Instructions: {{ recipe.instructions }}</p>
-{% endblock %}
+    <body class="bg-gray-100 font-sans">
+        <!-- Navigation Bar -->
+        <nav class="bg-indigo-800 text-white p-4">
+            <div
+                class="container w-10/12 mx-auto flex flex-col md:flex-row justify-between items-center">
+                <h1 class="text-2xl font-bold">Dashboard</h1>
+                <div>
+                    <a href="{{ url_for('dashboard') }}" class="mr-4">Dashboard</a>
+                    <a href="{{ url_for('create_recipe') }}" class="mr-4">Create Recipe</a>
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- View Recipe -->
+        <section class="container mt-8 flex items-center justify-center">
+            <div class="bg-white p-8 rounded shadow-md max-w-md w-full">
+                <h2 class="text-3xl font-bold mb-4">{{ recipe.title }}</h2>
+
+                <p>Ingredients:</p>
+                <ul>
+                    {% for ingredient in ingredients %}
+                    <li>{{ ingredient.name }} - {{ ingredient.quantity }}</li>
+                    {% endfor %}
+                </ul>
+                <p>Instructions: {{ recipe.instructions }}</p>
+            </div>
+        </section>
+    </body>
+</html>

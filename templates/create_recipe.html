@@ -1,17 +1,71 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Create Recipe</title>
+        <link rel="stylesheet" href="./static/output.css" />
+    </head>
 
-{% block title %}Create Recipe{% endblock %}
+    <body class="font-sans">
+        <!-- Navigation Bar -->
+        <nav class="bg-indigo-800 text-white p-4">
+            <div
+                class="container w-10/12 mx-auto flex flex-col md:flex-row justify-between items-center">
+                <h1 class="text-2xl font-bold">Dashboard</h1>
+                <div>
+                    <a href="{{ url_for('dashboard') }}" class="mr-4">Dashboard</a>
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                </div>
+            </div>
+        </nav>
 
-{% block content %}
-    <h2>Create a New Recipe</h2>
-    <form method="POST" action="{{ url_for('create_recipe') }}">
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" required>
-        <label for="ingredients">Ingredients (comma-separated):</label>
-        <textarea id="ingredients" name="ingredients" required></textarea>
-        <label for="instructions">Instructions:</label>
-        <textarea id="instructions" name="instructions" required></textarea>
-        <button type="submit">Create Recipe</button>
-    </form>
-    <p><a href="{{ url_for('dashboard') }}">Back to Dashboard</a></p>
-{% endblock %}
+        <!-- Create Recipe -->
+        <section class="container bg-gray-100 flex items-center justify-center h-screen">
+            <div class="bg-white p-8 rounded shadow-md max-w-md w-full">
+                <h2 class="text-3xl font-bold mb-4">Create a New Recipe</h2>
+
+                <form method="POST" action="{{ url_for('create_recipe') }}">
+                    <div class="mb-4">
+                        <label for="title" class="block text-gray-700 font-semibold mb-2"
+                            >Title</label
+                        >
+                        <input
+                            type="text"
+                            id="title"
+                            name="title"
+                            required
+                            class="w-full border-gray-300 border-2 rounded-md px-4 py-2 focus:outline-none focus:border-indigo-500" />
+                    </div>
+                    <div class="mb-4">
+                        <label for="ingredients" class="block text-gray-700 font-semibold mb-2"
+                            >Ingredients (comma-separated):</label
+                        >
+                        <textarea
+                            id="ingredients"
+                            name="ingredients"
+                            required
+                            class="w-full border-gray-300 border-2 rounded-md px-4 py-2 focus:outline-none focus:border-indigo-500"
+                            placeholder="Salt - 2spoon, Maggi - 2cube"
+                            ></textarea>
+                    </div>
+                    <div class="mb-6">
+                        <label for="instructions" class="block text-gray-700 font-semibold mb-2"
+                            >Instructions:</label
+                        >
+                        <textarea
+                            id="instructions"
+                            name="instructions"
+                            required
+                            class="w-full border-gray-300 border-2 rounded-md px-4 py-2 focus:outline-none focus:border-indigo-500"></textarea>
+                    </div>
+                    <button
+                        type="submit"
+                        class="w-full bg-indigo-500 text-white font-bold py-2 px-4 rounded-md focus:outline-none hover:bg-indigo-600">
+                        Create Recipe
+                    </button>
+                </form>
+            </div>
+        </section>
+    </body>
+</html>

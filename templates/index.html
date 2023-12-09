@@ -16,7 +16,7 @@
     <body class="font-sans">
         <!-- Navigation Bar -->
         <nav class="bg-indigo-800 text-white p-4">
-            <div class="container mx-auto flex justify-between items-center">
+            <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
                 <h1 class="text-2xl font-bold">Recipe Website</h1>
                 <div>
                     <a href="{{ url_for('login') }}" class="mr-4">Login</a>
@@ -27,12 +27,17 @@
 
         <!-- Hero Section -->
         <section class="relative">
-            <div class="bg-cover bg-center h-screen" style="background-image: url('https://source.unsplash.com/1600x900/?recipe')">
+            <div
+                class="bg-cover bg-center h-screen"
+                style="background-image: url('https://source.unsplash.com/1600x900/?recipe')">
                 <!-- Overlay to make text readable -->
                 <div class="absolute inset-0 hero-overlay"></div>
-                <div class="container mx-auto text-center relative z-10 h-full flex flex-col justify-center items-center text-white">
+                <div
+                    class="container mx-auto text-center relative z-10 h-full flex flex-col justify-center items-center text-white">
                     <h1 class="text-5xl font-bold mb-4">Discover Delicious Recipes</h1>
-                    <p class="text-lg">Explore a variety of mouth-watering dishes and learn new cooking techniques.</p>
+                    <p class="text-lg">
+                        Explore a variety of mouth-watering dishes and learn new cooking techniques.
+                    </p>
                 </div>
             </div>
         </section>

@@ -30,14 +30,17 @@
                 <h2 class="text-3xl font-bold mb-4">{{ recipe.title }}</h2>
 
                 <h3 class="font-bold">Ingredients:</h3>
-                <ul>
+                <ul class="list-disc">
                     {% for ingredient in ingredients %}
-                    <li>{{ ingredient.name }} - {{ ingredient.quantity }}</li>
+                    <li>
+                        {{ ingredient.name }} {% if ingredient.quantity %} - {{ ingredient.quantity
+                        }} {% endif %}
+                    </li>
                     {% endfor %}
                 </ul>
-                <br>
+                <br />
                 <h3 class="font-bold">Instructions:</h3>
-                <p> {{ recipe.instructions }}</p>
+                <p>{{ recipe.instructions }}</p>
             </div>
         </section>
     </body>

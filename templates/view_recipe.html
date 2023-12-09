@@ -29,14 +29,15 @@
             <div class="bg-white p-8 rounded shadow-md max-w-md w-full">
                 <h2 class="text-3xl font-bold mb-4">{{ recipe.title }}</h2>
 
-                <p>Ingredients:</p>
+                <h3 class="font-bold">Ingredients:</h3>
                 <ul>
                     {% for ingredient in ingredients %}
                     <li>{{ ingredient.name }} - {{ ingredient.quantity }}</li>
                     {% endfor %}
                 </ul>
                 <br>
-                <p>Instructions: {{ recipe.instructions }}</p>
+                <h3 class="font-bold">Instructions:</h3>
+                <p> {{ recipe.instructions }}</p>
             </div>
         </section>
     </body>

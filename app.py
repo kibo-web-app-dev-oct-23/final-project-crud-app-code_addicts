@@ -134,12 +134,12 @@ def create_recipe():
     return redirect(url_for("login"))
 
 
-
 def extract_ingredient_data(ingredient_data):
     parts = ingredient_data.split("-")
     name = parts[0].strip()
     quantity = parts[1].strip() if len(parts) > 1 else None
     return name, quantity
+
 
 # edit recipe route
 @app.route("/edit_recipe/<int:recipe_id>", methods=["GET", "POST"])
@@ -183,6 +183,7 @@ def edit_recipe(recipe_id):
 
     return redirect(url_for("login"))
 
+
 # delete recipe route
 @app.route("/delete_recipe/<int:recipe_id>", methods=["GET", "POST"])
 def delete_recipe(recipe_id):
@@ -206,8 +207,6 @@ def delete_recipe(recipe_id):
             return render_template("delete_recipe.html", recipe=recipe)
 
     return redirect(url_for("login"))
-
-
 
 
 if __name__ == "__main__":

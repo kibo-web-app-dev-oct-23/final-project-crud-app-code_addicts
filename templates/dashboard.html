@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Dashboard</title>
         <link rel="stylesheet" href="./static/output.css" />
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
     </head>
 
     <body class="font-sans">
@@ -34,8 +36,8 @@
                         class="bg-gray-200 hover:bg-gray-400 p-3"
                         >{{ recipe.title }}</a
                     >
-                    <a href="{{ url_for('edit_recipe', recipe_id=recipe.id) }}">Edit</a>
-                    <a href="{{ url_for('delete_recipe', recipe_id=recipe.id) }}">Delete</a>
+                    <a href="{{ url_for('edit_recipe', recipe_id=recipe.id) }}"><i class='bx bxs-edit text-2xl'></i></a>
+                    <a href="{{ url_for('delete_recipe', recipe_id=recipe.id) }}" class="hover:text-red-600"><i class='bx bxs-trash text-2xl' ></i></a>
                 </li>
                 {% endfor %}
             </ul>

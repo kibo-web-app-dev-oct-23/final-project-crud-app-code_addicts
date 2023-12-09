@@ -5,6 +5,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Create Recipe</title>
         <link rel="stylesheet" href="./static/output.css" />
+        <style>
+            /* Basic styling for the textarea */
+            textarea {
+              width: 100%;
+              padding: 10px;
+              box-sizing: border-box;
+              min-height: 50px; /* Set a minimum height to start with */
+              transition: min-height 0.3s; /* Add a smooth transition for height changes */
+            }
+        
+            /* Reset the min-height when content is present */
+            textarea:not(:empty) {
+              min-height: 0;
+            }
+          </style>
     </head>
 
     <body class="font-sans">

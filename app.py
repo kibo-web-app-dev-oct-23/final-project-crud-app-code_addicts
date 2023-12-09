@@ -134,11 +134,80 @@ def create_recipe():
     return redirect(url_for("login"))
 
 
+
 def extract_ingredient_data(ingredient_data):
     parts = ingredient_data.split("-")
     name = parts[0].strip()
     quantity = parts[1].strip() if len(parts) > 1 else None
     return name, quantity
+
+# edit recipe route
+@app.route("/edit_recipe/<int:recipe_id>", methods=["GET", "POST"])
+def edit_recipe(recipe_id):
+    if "user_id" in session:
+        recipe = Recipe.query.get(recipe_id)
+
+        # Check if the logged-in user is the owner of the recipe
+        if recipe.user_id == session["user_id"]:
+            if request.method == "POST":
+                # Update recipe details
+                recipe.title = request.form.get("title")
+                recipe.ingredients = request.form.get("ingredients")
+                recipe.instructions = request.form.get("instructions")
+
+                # Update the recipe in the database
+                db.session.commit()
+
+                # Update the ingredients associated with the recipe
+                ingredients_list = [
+                    ingredient.strip() for ingredient in recipe.ingredients.split(",")
+                ]
+
+                # Clear existing ingredients associated with the recipe
+                Ingredient.query.filter_by(recipe_id=recipe.id).delete()
+
+                for ingredient in ingredients_list:
+                    name, quantity = extract_ingredient_data(ingredient)
+
+                    new_ingredient = Ingredient(
+                        name=name, quantity=quantity, recipe_id=recipe.id
+                    )
+                    db.session.add(new_ingredient)
+
+                db.session.commit()
+
+                flash("Recipe updated successfully!", "success")
+                return redirect(url_for("dashboard"))
+
+            return render_template("edit_recipe.html", recipe=recipe)
+
+    return redirect(url_for("login"))
+
+# delete recipe route
+@app.route("/delete_recipe/<int:recipe_id>", methods=["GET", "POST"])
+def delete_recipe(recipe_id):
+    if "user_id" in session:
+        recipe = Recipe.query.get(recipe_id)
+
+        # Check if the logged-in user is the owner of the recipe
+        if recipe.user_id == session["user_id"]:
+            if request.method == "POST":
+                # Delete the recipe from the database
+                db.session.delete(recipe)
+
+                # Delete associated ingredients
+                Ingredient.query.filter_by(recipe_id=recipe.id).delete()
+
+                db.session.commit()
+
+                flash("Recipe deleted successfully!", "success")
+                return redirect(url_for("dashboard"))
+
+            return render_template("delete_recipe.html", recipe=recipe)
+
+    return redirect(url_for("login"))
+
+
 
 
 if __name__ == "__main__":
